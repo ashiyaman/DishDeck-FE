@@ -9,7 +9,7 @@ const RecipeDetail = () => {
     const dispatch = useDispatch()
     const recipeId = location.state?.recipeId
     const {selectedRecipe, status, error} = useSelector(state => state.recipes)
-    
+
     useEffect(() => {
         if(recipeId){
             dispatch(fetchRecipeById(recipeId))  
@@ -20,12 +20,17 @@ const RecipeDetail = () => {
             {status === 'success' && selectedRecipe &&
                 <div className='my-4'>
                     <h1>{selectedRecipe.name}</h1>
-                    <div className='row border-2' style={{height: '20vh'}}>
+                    <div className='row border-2 my-4' style={{height: '20vh'}}>
                         <div className='col-md-4 ' >
                             <img src='https://placehold.co/' className='img-fluid' alt={selectedRecipe.name}/>
                         </div>
                         <div className='col-md-8 border-2'>
                             <h4>Cuisine: {selectedRecipe.cuisine}</h4>
+                            <div>
+                                <span><strong>Prep Time:</strong> {selectedRecipe.prepTime}</span>
+                                <span><strong>Cooking Time:</strong> {selectedRecipe.cookingTime}</span>
+                            </div>
+                            <p>Servings: {selectedRecipe.servings}</p>
                             <section className='my-2'>
                                 <h5>Ingredients:</h5>
                                 <div>{selectedRecipe.ingredients.map(ingredient => 
@@ -39,6 +44,13 @@ const RecipeDetail = () => {
                                         <li>{instruction}</li>
                                     )}
                                 </ol>
+                            </section>
+                            <section className='my-2'>
+                                <h5>Nutrition: </h5>
+                                {selectedRecipe?.nutrition && selectedRecipe.nutrition.map(nutri => (
+                                        <p>{nutri}</p>
+                                    )
+                                )}
                             </section>
                         </div>
                     </div>

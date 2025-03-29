@@ -1,6 +1,8 @@
 const AddRecipe = () => {
     return (
-        <h1>Add Recipe</h1>
+        <main className='container'>
+            <h2>Add New Recipe</h2>
+        </main>
     )
 }
 
