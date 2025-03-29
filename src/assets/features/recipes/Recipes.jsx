@@ -11,7 +11,7 @@ const Recipes = () => {
         dispatch(fetchRecipes())
     }, [dispatch])
 
-    
+    console.log(recipes)
 
     return (
         <main className='container'>
@@ -20,7 +20,7 @@ const Recipes = () => {
                 <div className='row'>
                     {status === 'success' &&
                         recipes.map(recipe => (
-                            <div className='col-md-3 my-3'>
+                            <div key={recipe._id} className='col-md-3 my-3'>
                                 <div className='card' style={{height: '400px'}}>
                                     <div className='card-img-top'>
                                         <img src='https://placehold.co/600x500' 

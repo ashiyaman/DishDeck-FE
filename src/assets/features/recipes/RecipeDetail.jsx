@@ -18,7 +18,7 @@ const RecipeDetail = () => {
     return (
         <main className='container'>
             {status === 'success' && selectedRecipe &&
-                <div className='my-4'>
+                <div className='my-4 py-2'>
                     <h1>{selectedRecipe.name}</h1>
                     <div className='row border-2 my-4' style={{height: '20vh'}}>
                         <div className='col-md-4 ' >
@@ -26,32 +26,35 @@ const RecipeDetail = () => {
                         </div>
                         <div className='col-md-8 border-2'>
                             <h4>Cuisine: {selectedRecipe.cuisine}</h4>
-                            <div>
+                            {selectedRecipe.details && <p>{selectedRecipe.details}</p>}
+                            <div className='d-flex justify-content-between'>
                                 <span><strong>Prep Time:</strong> {selectedRecipe.prepTime}</span>
                                 <span><strong>Cooking Time:</strong> {selectedRecipe.cookingTime}</span>
                             </div>
-                            <p>Servings: {selectedRecipe.servings}</p>
+                            <p><strong>Servings:</strong> {selectedRecipe.servings}</p>
                             <section className='my-2'>
                                 <h5>Ingredients:</h5>
-                                <div>{selectedRecipe.ingredients.map(ingredient => 
-                                    <span>{ingredient.amount} {ingredient.name}, </span>
+                                <div>{selectedRecipe.ingredients.map((ingredient, index) => 
+                                    <span key={index}>{ingredient},</span>
                                 )}</div>
                             </section>
                             <section className='my-2'>
                                 <h5>Instructions: </h5>
                                 <ol>
-                                    {selectedRecipe.instructions.map(instruction => 
-                                        <li>{instruction}</li>
+                                    {selectedRecipe.instructions.map((instruction, index) => 
+                                        <li key={index}>{instruction}</li>
                                     )}
                                 </ol>
                             </section>
-                            <section className='my-2'>
+                            {selectedRecipe?.nutrition &&
+                                <section className='my-2 mb-4'>
                                 <h5>Nutrition: </h5>
-                                {selectedRecipe?.nutrition && selectedRecipe.nutrition.map(nutri => (
-                                        <p>{nutri}</p>
-                                    )
-                                )}
-                            </section>
+                                <div>
+                                    {Object.entries(selectedRecipe.nutrition).map(([key, value]) => (
+                                        <p>{key}: {value}</p>
+                                    ))}
+                                </div>
+                            </section>}
                         </div>
                     </div>
                 </div>

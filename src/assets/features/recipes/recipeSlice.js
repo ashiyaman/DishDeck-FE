@@ -22,7 +22,8 @@ export const fetchRecipeById = createAsyncThunk('fetch/recipeById',
 //Add a new Recipe
 export const addRecipe = createAsyncThunk('post/recipe',
     async(recipeData) => {
-        const response = await axios.post(`${DISHDECK_URI}/recipes`, {recipeDate: recipeData})
+        console.log(recipeData)
+        const response = await axios.post(`${DISHDECK_URI}/recipes`, {recipe: recipeData})
         console.log(response.data)
         return response.data
     }
@@ -71,6 +72,29 @@ export const recipeSlice = createSlice({
                 state.selectedRecipe = action.payload
             })
             .addCase(fetchRecipeById.rejected, (state, action) => {
+                state.status = 'error'
+                state.error = action.payload
+            })
+            .addCase(addRecipe.pending, state => {
+                state.status = 'loading'
+            })
+            .addCase(addRecipe.fulfilled, (state, action) => {
+                state.status = 'success'
+                console.log(action.payload)
+                state.recipes = [...state.recipes, action.payload]
+            })
+            .addCase(addRecipe.rejected, (state, action) => {
+                state.status = 'error'                
+                state.error = action.payload
+            })
+            .addCase(deleteRecipeById.pending, state => {
+                state.status = 'loading'
+            })
+            .addCase(deleteRecipeById.fulfilled, (state, action) => {
+                state.status = 'success'
+                state.recipes = state.recipes.filter(recipe => recipe._id !== action.payload._id)
+            })
+            .addCase(deleteRecipeById.rejected, (state, action) => {
                 state.status = 'error'
                 state.error = action.payload
             })
