@@ -1,7 +1,7 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 
-const DISHDECK_URI = `https://dish-deck-be.vercel.app/`
+const DISHDECK_URI = `https://dish-deck-be.vercel.app`
 
 // Get All recipes from db
 export const fetchRecipes = createAsyncThunk('fetch/recipes', async () => {
