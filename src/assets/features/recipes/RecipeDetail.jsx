@@ -25,13 +25,13 @@ const RecipeDetail = () => {
                             <img src='https://placehold.co/' className='img-fluid' alt={selectedRecipe.name}/>
                         </div>
                         <div className='col-md-8 border-2'>
-                            <h4>Cuisine: {selectedRecipe.cuisine}</h4>
+                            <h4>🥘Cuisine: {selectedRecipe.cuisine}</h4>
                             {selectedRecipe.details && <p>{selectedRecipe.details}</p>}
                             <div className='d-flex justify-content-between'>
-                                <span><strong>Prep Time:</strong> {selectedRecipe.prepTime}</span>
+                                <span><strong>⏳Prep Time:</strong> {selectedRecipe.prepTime}</span>
                                 <span><strong>Cooking Time:</strong> {selectedRecipe.cookingTime}</span>
                             </div>
-                            <p><strong>Servings:</strong> {selectedRecipe.servings}</p>
+                            <p><strong>🍽 Servings:</strong> {selectedRecipe.servings}</p>
                             <section className='my-2'>
                                 <h5>Ingredients:</h5>
                                 <div>{selectedRecipe.ingredients.map((ingredient, index) => 

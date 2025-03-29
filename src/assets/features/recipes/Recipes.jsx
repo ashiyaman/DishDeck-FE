@@ -25,12 +25,12 @@ const Recipes = () => {
                             <div key={recipe._id} className='col-md-3 my-3'>
                                 <div className='card' style={{height: '400px'}}>
                                     <div className='card-img-top'>
-                                        <img src='https://placehold.co/600x500' 
+                                        <img src={'../images/Neapolitan_Pizza.avif' || 'https://placehold.co/600x500'} 
                                             className='img-fluid' alt={recipe.name}/>
                                     </div>
                                     <div className='card-body'>
                                         <h5 className='card-title'>{recipe.name}</h5>
-                                        <p className='card-text'><strong>Cuisine Type: </strong>{recipe.cuisine}</p>
+                                        <p className='card-text'><strong>🥘Cuisine: </strong>{recipe.cuisine}</p>
                                         <p className='card-text'><strong>Ingredients: </strong>
                                             <Link to={`/recipes/${recipe._id}`} state={{recipeId: recipe._id}}>See Recipe</Link>
                                         </p>
