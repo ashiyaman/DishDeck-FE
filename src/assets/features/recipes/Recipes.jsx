@@ -1,5 +1,5 @@
 import { useEffect } from "react"
-import { fetchRecipeById, fetchRecipes } from "./recipeSlice"
+import { deleteRecipeById, fetchRecipeById, fetchRecipes } from "./recipeSlice"
 import { useDispatch, useSelector } from "react-redux"
 import { Link } from "react-router-dom"
 
@@ -11,7 +11,9 @@ const Recipes = () => {
         dispatch(fetchRecipes())
     }, [dispatch])
 
-    console.log(recipes)
+    const deleteHandler = (recipeId) => {
+        dispatch(deleteRecipeById(recipeId))
+    }
 
     return (
         <main className='container'>
@@ -35,6 +37,7 @@ const Recipes = () => {
                                         <p className='card-text'><strong>Instructions: </strong>
                                             <Link  to={`/recipes/${recipe._id}`}state={{recipeId: recipe._id}}>See Recipe</Link>
                                         </p>
+                                        <button className='btn btn-danger' onClick={() => deleteHandler(recipe._id)}>Delete</button>
                                     </div>
                                 </div>
                             </div>

@@ -22,9 +22,7 @@ export const fetchRecipeById = createAsyncThunk('fetch/recipeById',
 //Add a new Recipe
 export const addRecipe = createAsyncThunk('post/recipe',
     async(recipeData) => {
-        console.log(recipeData)
         const response = await axios.post(`${DISHDECK_URI}/recipes`, {recipe: recipeData})
-        console.log(response.data)
         return response.data
     }
 )
@@ -33,7 +31,6 @@ export const addRecipe = createAsyncThunk('post/recipe',
 export const deleteRecipeById = createAsyncThunk('delete/recipeById',
     async(recipeId) => {
         const response = await axios.delete(`${DISHDECK_URI}/recipes/${recipeId}`)
-        console.log('...resp...', response.data)
         return response.data
     }
 )
@@ -80,7 +77,6 @@ export const recipeSlice = createSlice({
             })
             .addCase(addRecipe.fulfilled, (state, action) => {
                 state.status = 'success'
-                console.log(action.payload)
                 state.recipes = [...state.recipes, action.payload]
             })
             .addCase(addRecipe.rejected, (state, action) => {
