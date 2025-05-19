@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom'
 const Recipes = () => {
     const dispatch = useDispatch()
     const {filteredRecipes, status, error} = useSelector(state => state.recipes)
+    console.log(filteredRecipes)
 
     useEffect(() => {
         dispatch(fetchRecipes())
@@ -24,7 +25,9 @@ const Recipes = () => {
                         filteredRecipes.map(recipe => (
                             <div key={recipe._id} className='col-md-3 my-3'>
                                 <div className='card h-100 shadow-sm'>                                    
-                                    <img src={recipe.image || 'https://placehold.co/600x500'} 
+                                    <img src={recipe.image && 
+                                        (recipe.image.includes('.avif') || recipe.image.includes('.jpg') || recipe.image.includes('.png')
+                                        ) ? recipe.image : 'https://placehold.co/600x500'} 
                                         className='img-fluid card-img-top' alt={recipe.name} 
                                         style={{ height: '200px', objectFit: 'cover' }}/>
                             
