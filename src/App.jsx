@@ -9,7 +9,7 @@ import Recipes from './assets/features/recipes/Recipes'
 
 function App() {
   return (
-    <div className='bg-light'>
+    <div className='bg-light minh-100 !important'>
       <Router>
         <Header />      
         <Routes>

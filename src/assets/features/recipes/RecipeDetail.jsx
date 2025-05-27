@@ -18,6 +18,13 @@ const RecipeDetail = () => {
 
     return (
         <main className='container'>
+            {status === "loading" && (
+            <div className="d-flex justify-content-center">
+              <div className="spinner-border text-primary" role="status">
+                <span className="sr-only"></span>
+              </div>
+            </div>
+          )}
             {status === 'success' && selectedRecipe && (
                 <div className='my-4 py-2'>
                     <h1 style={{ color: '#007bff', fontWeight: 'bold' }}>{selectedRecipe.name}</h1>
