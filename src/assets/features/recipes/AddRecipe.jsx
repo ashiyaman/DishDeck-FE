@@ -58,11 +58,9 @@ const AddRecipe = () => {
     const formSubmitHandler = async(e) => {
         e.preventDefault()
         const isImage = await isActualImage(image)
-        console.log('is url valid.....................................................', isImage)
         if (!isImage) {
             
             setError(`Please enter a valid image URL`)
-            console.log('error................1..........', error)
             return
         }        
 
@@ -78,7 +76,6 @@ const AddRecipe = () => {
             nutrition,
             details
         }
-        console.log('recipe................', recipe)
         dispatch(addRecipe(recipe))
             .then(result => {
                 if(addRecipe.fulfilled.match(result)){
