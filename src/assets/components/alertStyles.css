@@ -1,0 +1,14 @@
+.alert-fixed {
+  position: fixed;
+  top: 40%;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1050; 
+  min-width: 300px;
+  max-width: 90vw;
+  pointer-events: auto;
+  padding: 12px 20px;
+  border-radius: 6px;
+  background-color: white;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+}

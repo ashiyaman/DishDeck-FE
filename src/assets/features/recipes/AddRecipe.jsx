@@ -3,6 +3,9 @@ import { useDispatch } from 'react-redux'
 import { addRecipe } from './recipeSlice'
 import { useNavigate } from 'react-router-dom'
 
+import { isActualImage } from '../../utils/ValidationUtils'
+import AlertMessage from '../../components/AlertMessage'
+
 const AddRecipe = () => {
     const dispatch = useDispatch()
     const navigate = useNavigate()
@@ -21,6 +24,9 @@ const AddRecipe = () => {
     const [nutritionComponent, setNutritionComponent] = useState('calories')
     const [nutrition, setNutrition] = useState({})
     const [details, setDetails] = useState('')
+
+    const [success, setSuccess] = useState(null)
+    const [error, setError] = useState(null)
 
     const ingredientsHandler = (e) => {
         e.preventDefault()
@@ -51,6 +57,15 @@ const AddRecipe = () => {
 
     const formSubmitHandler = async(e) => {
         e.preventDefault()
+        const isImage = await isActualImage(image)
+        console.log('is url valid.....................................................', isImage)
+        if (!isImage) {
+            
+            setError(`Please enter a valid image URL`)
+            console.log('error................1..........', error)
+            return
+        }        
+
         const recipe = {
             name,
             cuisine,
@@ -63,13 +78,30 @@ const AddRecipe = () => {
             nutrition,
             details
         }
-        await dispatch(addRecipe(recipe))
-        navigate('/')
+        console.log('recipe................', recipe)
+        dispatch(addRecipe(recipe))
+            .then(result => {
+                if(addRecipe.fulfilled.match(result)){
+                    setSuccess(`Recipe Added Successfully!!!`)
+                    setTimeout(() => {
+                        navigate('/')
+                    }, 2000)
+                }
+                else{
+                    setError('Failed to add recipe')
+                }
+            })
     }
 
     return (
         <main className='container'>
             <h2 className='my-3'>Add New Recipe</h2>
+            {error !== null && 
+                <AlertMessage type='danger' message={error} />
+            }
+            {success !== null && 
+                <AlertMessage type='primary' message={success} />
+            }
             <form onSubmit={formSubmitHandler} className='my-3'>
                 <label htmlFor='name'>Name:</label><br/>
                 <input className='form-control shadow-sm' required value={name} onChange={(e) => setName(e.target.value)} type='text' placeholder='Name' /><br/>
@@ -91,7 +123,7 @@ const AddRecipe = () => {
 
                 <label htmlFor='ingredients'>Ingredients:</label><br/>
                 <div className='d-flex'>
-                    <input className='form-control shadow-sm' type='text' value={ingredientInput} onChange={(e) => setIngredientInput(e.target.value)} placeholder='Ingredient (e.g., 1 cup onion sliced)' />
+                    <input className='form-control shadow-sm'  type='text' value={ingredientInput} onChange={(e) => setIngredientInput(e.target.value)} placeholder='Ingredient (e.g., 1 cup onion sliced)' />
                     <button className='btn btn-primary shadow' onClick={ingredientsHandler}> + </button>
                 </div><br/>
                 <ol>
@@ -100,7 +132,7 @@ const AddRecipe = () => {
 
                 <label htmlFor='instructions'>Instructions:</label><br/>
                 <div className='d-flex'>
-                    <input className='form-control shadow-sm' type='text' value={instructionInput} onChange={(e) => setInstructionInput(e.target.value)} placeholder='Instruction (e.g., Heat oil in a wok and sauté garlic and red chili.)' />
+                    <input className='form-control shadow-sm'  type='text' value={instructionInput} onChange={(e) => setInstructionInput(e.target.value)} placeholder='Instruction (e.g., Heat oil in a wok and sauté garlic and red chili.)' />
                     <button className='btn btn-primary shadow' onClick={instructionsHandler}> + </button>
                 </div><br/>
                 <ol>
@@ -126,7 +158,7 @@ const AddRecipe = () => {
                 )}
 
                 <label htmlFor='details'>Details:</label><br/>
-                <textarea className='form-control shadow-sm' value={details} onChange={(e) => setDetails(e.target.value)} placeholder='Details (e.g., A simple yet delicious classic, Margherita pizza highlights fresh ingredients and bold flavors.)' ></textarea><br/>
+                <textarea className='form-control shadow-sm' required value={details} onChange={(e) => setDetails(e.target.value)} placeholder='Details (e.g., A simple yet delicious classic, Margherita pizza highlights fresh ingredients and bold flavors.)' ></textarea><br/>
 
                 <input className='btn btn-primary shadow' type='submit' value='Add Recipe' />
             </form>

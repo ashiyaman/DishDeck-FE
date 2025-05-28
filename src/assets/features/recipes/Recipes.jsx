@@ -1,19 +1,31 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { deleteRecipeById, fetchRecipeById, fetchRecipes } from './recipeSlice'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
+import { isActualImage } from '../../utils/ValidationUtils'
+import AlertMessage from '../../components/AlertMessage'
 
 const Recipes = () => {
     const dispatch = useDispatch()
-    const {filteredRecipes, status, error} = useSelector(state => state.recipes)
-    console.log(filteredRecipes)
+    const {filteredRecipes, status} = useSelector(state => state.recipes)
+
+    const [success, setSuccess] = useState(null)
+    const [error, setError] = useState(null)
 
     useEffect(() => {
         dispatch(fetchRecipes())
     }, [dispatch])
 
     const deleteHandler = (recipeId) => {
-      dispatch(deleteRecipeById(recipeId));
+      setSuccess(null)
+      setError(null)
+      dispatch(deleteRecipeById(recipeId))
+      .then(result => {
+        if(deleteRecipeById.fulfilled.match(result)){
+          setSuccess(`Recipe Deleted Successfully!!!`)
+        }
+      })
+      
     };
 
     return (
@@ -27,17 +39,14 @@ const Recipes = () => {
               </div>
             </div>
           )}
+          {success && <AlertMessage type='primary' message={success}/>}
           <div className="row">
             {status === "success" &&
               filteredRecipes.map((recipe) => (
                 <div key={recipe._id} className="col-md-3 my-3">
                   <div className="card h-100 shadow-sm">
                     <img
-                      src={
-                        recipe.image &&
-                        (recipe.image.includes(".avif") ||
-                          recipe.image.includes(".jpg") ||
-                          recipe.image.includes(".png"))
+                      src={ isActualImage(recipe.image)                         
                           ? recipe.image
                           : "https://placehold.co/600x500"
                       }
