@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useLocation } from 'react-router-dom';
 
 import { fetchRecipeById } from './recipeSlice';
+import { isActualImage } from '../../utils/ValidationUtils';
 
 const RecipeDetail = () => {
     const location = useLocation();
@@ -44,7 +45,8 @@ const RecipeDetail = () => {
                             }}
                         >
                             <img
-                                src={selectedRecipe.image || 'https://placehold.co/600x400'}
+                                src={isActualImage(selectedRecipe.image) ? 
+                                    selectedRecipe.image : 'https://placehold.co/600x400'}
                                 className='img-fluid rounded w-100'
                                 alt={selectedRecipe.name}
                                 style={{

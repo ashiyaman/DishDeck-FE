@@ -3,7 +3,6 @@ import './alertStyles.css'
 
 const AlertMessage = ({ type , message, duration = 3000 }) => {
   const [visible, setVisible] = useState(true);
-  console.log('we are in alert.......', type, message, duration)
 
   useEffect(() => {
     const hideTimer = setTimeout(() => setVisible(false), duration);
