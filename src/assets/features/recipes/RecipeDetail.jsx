@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useLocation } from 'react-router-dom';
 
 import { fetchRecipeById } from './recipeSlice';
-import  isActualImage  from '../../utils/ValidationUtils';
+import  isActualImage  from '../../utils/validationUtils'
 
 const RecipeDetail = () => {
     const location = useLocation();
