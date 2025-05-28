@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import { deleteRecipeById, fetchRecipeById, fetchRecipes } from './recipeSlice'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
-import { isActualImage } from '../../utils/ValidationUtils'
+import { isActualImage } from '../../../utils/ValidationUtils'
 import AlertMessage from '../../components/AlertMessage'
 
 const Recipes = () => {
