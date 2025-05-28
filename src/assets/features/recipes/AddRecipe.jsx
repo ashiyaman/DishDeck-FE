@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux'
 import { addRecipe } from './recipeSlice'
 import { useNavigate } from 'react-router-dom'
 
-import isActualImage  from '../../utils/ValidationUtils.js'
+import isActualImage  from '../utils/ValidationUtils'
 import AlertMessage from '../../components/AlertMessage'
 
 const AddRecipe = () => {
