@@ -2,6 +2,8 @@
 
 DishDeck is a powerful and user-friendly recipe organizer designed for food enthusiasts who want to store, manage, and explore their favorite recipes. Built using the MERN stack, DishDeck leverages Redux Toolkit for state management, ensuring a smooth and efficient user experience. The backend is powered by Node.js and Express.js, ensuring fast API responses, while MongoDB efficiently stores recipe data. With its well-structured project architecture, DishDeck is easy to maintain and extend with additional features in the future.
 
+** Demo: ** [https://dish-deck-fe.vercel.app/](https://dish-deck-fe.vercel.app/)
+
 ## 🛠 Tech Stack
 
 - **Frontend:** React, Redux, Redux Toolkit, Axios
